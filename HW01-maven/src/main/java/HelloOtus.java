@@ -16,4 +16,8 @@ public class HelloOtus {
                 .add("name", name)
                 .toString();
     }
+
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
 }
