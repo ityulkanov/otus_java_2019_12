@@ -1,3 +1,5 @@
+package ityulkanov.com;
+
 import com.google.common.base.MoreObjects;
 
 public class HelloOtus {
