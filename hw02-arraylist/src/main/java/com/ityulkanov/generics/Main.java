@@ -9,7 +9,7 @@ public class Main {
             diyArrayList.add(new Date());
 
         }
-//        diyArrayList.remove(1);
+        diyArrayList.remove(34);
         System.out.println(diyArrayList.get(0));
         System.out.println(diyArrayList.get(1));
 

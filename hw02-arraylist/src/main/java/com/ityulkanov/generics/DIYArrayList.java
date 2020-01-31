@@ -25,7 +25,7 @@ public class DIYArrayList<T> implements List<T> {
     }
 
     public DIYArrayList() {
-        elementData =  (T[]) new Object[DEFAULT_LENGTH];
+        elementData = (T[]) new Object[DEFAULT_LENGTH];
     }
 
     @Override
@@ -37,18 +37,20 @@ public class DIYArrayList<T> implements List<T> {
 
     private void add(T type, T[] elementData, int size) {
         if (size == elementData.length) {
-            elementData = grow();
+            this.elementData = grow();
         } else {
-            elementData[size] = type;
+            this.elementData[size] = type;
             this.size = size + 1;
         }
     }
 
+    //Supplemental method to simplify the add method
     private T[] grow() {
         return grow(size + 1);
 
     }
 
+    //Increases buffers size if needed (twice every time till max capacity reached)
     private T[] grow(int i) {
         int oldCapacity = elementData.length;
         if (oldCapacity > 0) {
@@ -58,6 +60,7 @@ public class DIYArrayList<T> implements List<T> {
         return elementData = (T[]) new Object[Math.max(DEFAULT_LENGTH, i)];
     }
 
+    //Utility method from ArraysSupport
     public static int newLength(int oldLength, int minGrowth, int prefGrowth) {
         final int MAX_ARRAY_LENGTH = Integer.MAX_VALUE - 8;
         int newLength = Math.max(minGrowth, prefGrowth) + oldLength;
@@ -67,6 +70,7 @@ public class DIYArrayList<T> implements List<T> {
         return hugeLength(oldLength, minGrowth);
     }
 
+    //Utility method from ArraysSupport
     private static int hugeLength(int oldLength, int minGrowth) {
         final int MAX_ARRAY_LENGTH = Integer.MAX_VALUE - 8;
         int minLength = oldLength + minGrowth;
@@ -86,9 +90,8 @@ public class DIYArrayList<T> implements List<T> {
     }
 
     @Override
-    public T set(int i, T element) {
-        elementData[i] = element;
-        return element;
+    public T set(int index, T element) {
+        return null;
     }
 
     @Override
@@ -177,17 +180,6 @@ public class DIYArrayList<T> implements List<T> {
 
     }
 
-//    @Override
-//    public T get(int index) {
-//        System.out.println("get method run");
-//        return null;
-//    }
-//
-//    @Override
-//    public T set(int index, T type) {
-//        return null;
-//    }
-
     @Override
     public void add(int index, T type) {
 
@@ -196,7 +188,10 @@ public class DIYArrayList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        return null;
+        System.out.println("The element number " + index + " has been removed");
+
+        T element = (T) "";
+        return element;
     }
 
     @Override
