@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class DIYArray<T> implements List<T> {
+public class DiyArray<T> implements List<T> {
 
 
     protected transient int modCount = 0;
@@ -24,7 +24,7 @@ public class DIYArray<T> implements List<T> {
     private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
 
 
-    public DIYArray(int initialCapacity) {
+    public DiyArray(int initialCapacity) {
         if (initialCapacity > 0) {
             this.elementData = new Object[initialCapacity];
         } else if (initialCapacity == 0) {
@@ -35,16 +35,17 @@ public class DIYArray<T> implements List<T> {
         }
     }
 
-    public DIYArray() {
+    public DiyArray() {
         this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
     }
 
 
-    public DIYArray(Collection<? extends T> c) {
+    public DiyArray(Collection<? extends T> c) {
         elementData = c.toArray();
         if ((size = elementData.length) != 0) {
-            if (elementData.getClass() != Object[].class)
+            if (elementData.getClass() != Object[].class) {
                 elementData = Arrays.copyOf(elementData, size, Object[].class);
+            }
         } else {
             // replace with empty array.
             this.elementData = EMPTY_ELEMENTDATA;
@@ -74,7 +75,7 @@ public class DIYArray<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        throw new UnsupportedOperationException("toArray called");
+        return Arrays.copyOf(elementData, size);
     }
 
     @Override
@@ -113,9 +114,6 @@ public class DIYArray<T> implements List<T> {
     }
 
     public static int newLength(int oldLength, int minGrowth, int prefGrowth) {
-        // assert oldLength >= 0
-        // assert minGrowth > 0
-
         int newLength = Math.max(minGrowth, prefGrowth) + oldLength;
         if (newLength - MAX_ARRAY_LENGTH <= 0) {
             return newLength;
@@ -207,11 +205,11 @@ public class DIYArray<T> implements List<T> {
     private void fastRemove(Object[] es, int i) {
         modCount++;
         final int newSize;
-        if ((newSize = size - 1) > i)
+        if ((newSize = size - 1) > i) {
             System.arraycopy(es, i + 1, es, i, newSize - i);
+        }
         es[size = newSize] = null;
     }
-
 
     @Override
     public int indexOf(Object o) {
@@ -242,7 +240,6 @@ public class DIYArray<T> implements List<T> {
         return (E) es[index];
     }
 
-
     private class Itr implements Iterator<T> {
         int cursor;       // index of next element to return
         int lastRet = -1; // index of last element returned; -1 if no such
@@ -260,22 +257,25 @@ public class DIYArray<T> implements List<T> {
         public T next() {
             checkForComodification();
             int i = cursor;
-            if (i >= size)
+            if (i >= size) {
                 throw new NoSuchElementException();
-            Object[] elementData = DIYArray.this.elementData;
-            if (i >= elementData.length)
+            }
+            Object[] elementData = DiyArray.this.elementData;
+            if (i >= elementData.length) {
                 throw new ConcurrentModificationException();
+            }
             cursor = i + 1;
             return (T) elementData[lastRet = i];
         }
 
         public void remove() {
-            if (lastRet < 0)
+            if (lastRet < 0) {
                 throw new IllegalStateException();
+            }
             checkForComodification();
 
             try {
-                DIYArray.this.remove(lastRet);
+                DiyArray.this.remove(lastRet);
                 cursor = lastRet;
                 lastRet = -1;
                 expectedModCount = modCount;
@@ -287,13 +287,14 @@ public class DIYArray<T> implements List<T> {
         @Override
         public void forEachRemaining(Consumer<? super T> action) {
             Objects.requireNonNull(action);
-            final int size = DIYArray.this.size;
+            final int currSize = DiyArray.this.size;
             int i = cursor;
-            if (i < size) {
+            if (i < currSize) {
                 final Object[] es = elementData;
-                if (i >= es.length)
+                if (i >= es.length) {
                     throw new ConcurrentModificationException();
-                for (; i < size && modCount == expectedModCount; i++)
+                }
+                for (; i < currSize && modCount == expectedModCount; i++)
                     action.accept(elementAt(es, i));
                 // update once at end to reduce heap write traffic
                 cursor = i;
@@ -330,11 +331,13 @@ public class DIYArray<T> implements List<T> {
         public T previous() {
             checkForComodification();
             int i = cursor - 1;
-            if (i < 0)
+            if (i < 0) {
                 throw new NoSuchElementException();
-            Object[] elementData = DIYArray.this.elementData;
-            if (i >= elementData.length)
+            }
+            Object[] elementData = DiyArray.this.elementData;
+            if (i >= elementData.length) {
                 throw new ConcurrentModificationException();
+            }
             cursor = i;
             return (T) elementData[lastRet = i];
         }
@@ -345,7 +348,7 @@ public class DIYArray<T> implements List<T> {
             checkForComodification();
 
             try {
-                DIYArray.this.set(lastRet, t);
+                DiyArray.this.set(lastRet, t);
             } catch (IndexOutOfBoundsException ex) {
                 throw new ConcurrentModificationException();
             }
@@ -356,7 +359,7 @@ public class DIYArray<T> implements List<T> {
 
             try {
                 int i = cursor;
-                DIYArray.this.add(i, t);
+                DiyArray.this.add(i, t);
                 cursor = i + 1;
                 lastRet = -1;
                 expectedModCount = modCount;
@@ -365,5 +368,4 @@ public class DIYArray<T> implements List<T> {
             }
         }
     }
-
 }
