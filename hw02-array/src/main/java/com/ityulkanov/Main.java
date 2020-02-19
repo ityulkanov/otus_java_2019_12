@@ -15,18 +15,24 @@ public class Main {
             diyDestArray.add(Character.toString(sampleSecondString.charAt(i)));
 
         }
-
+        System.out.println("\n----- Adding elements into collection via addAll method: -----");
         Collections.addAll(diyArray, " sample", " sample1", " sample2");
         printArray(diyArray);
+        System.out.println("\n----- Removing elements from collection ----- ");
         for (int i = 0; i < 3; i++) {
             diyArray.remove(diyArray.size() - 1);
             System.out.println("\nElement has been removed");
             printArray(diyArray);
         }
 
+        System.out.println("\n ----- Copying one collection into another -----");
         Collections.copy(diyDestArray, diyArray);
         printArray(diyDestArray);
+
+        System.out.println("\n ----- Sorting collection: -----");
         Collections.sort(diyArray, null);
+        printArray(diyArray);
+        System.out.println("\n");
     }
 
     private static void printArray(DiyArray diyArray) {
