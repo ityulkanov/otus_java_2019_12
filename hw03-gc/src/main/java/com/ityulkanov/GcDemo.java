@@ -21,8 +21,8 @@ public class GcDemo {
         switchOnMonitoring();
         long beginTime = System.currentTimeMillis();
 
-        int size = 5 * 1000 * 1000;
-        int loopCounter = 1000;
+        int size = 5 * 1000 * 10;
+        int loopCounter = 10000;
 
         MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
         ObjectName name = new ObjectName("com.ityulkanov:type=Benchmark");
