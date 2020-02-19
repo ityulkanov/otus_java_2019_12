@@ -19,7 +19,7 @@ public class DiyArray<T> implements List<T> {
     private static final int MAX_ARRAY_LENGTH = Integer.MAX_VALUE - 8;
     private static final int DEFAULT_CAPACITY = 10;
 
-    private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
+    private final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
 
 
     public DiyArray(int initialCapacity) {
