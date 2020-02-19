@@ -13,13 +13,11 @@ import java.util.function.Consumer;
 public class DiyArray<T> implements List<T> {
 
 
-    protected transient int modCount = 0;
-    transient Object[] elementData;
+    private transient int modCount = 0;
+    private Object[] elementData;
     private int size;
-    public static final int MAX_ARRAY_LENGTH = Integer.MAX_VALUE - 8;
+    private static final int MAX_ARRAY_LENGTH = Integer.MAX_VALUE - 8;
     private static final int DEFAULT_CAPACITY = 10;
-    private static final Object[] EMPTY_ELEMENTDATA = {};
-
 
     private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
 
@@ -28,7 +26,7 @@ public class DiyArray<T> implements List<T> {
         if (initialCapacity > 0) {
             this.elementData = new Object[initialCapacity];
         } else if (initialCapacity == 0) {
-            this.elementData = EMPTY_ELEMENTDATA;
+            this.elementData = new Object[]{};
         } else {
             throw new IllegalArgumentException("Illegal Capacity: " +
                     initialCapacity);
@@ -48,7 +46,7 @@ public class DiyArray<T> implements List<T> {
             }
         } else {
             // replace with empty array.
-            this.elementData = EMPTY_ELEMENTDATA;
+            this.elementData = new Object[]{};
         }
     }
 
@@ -113,7 +111,7 @@ public class DiyArray<T> implements List<T> {
         }
     }
 
-    public static int newLength(int oldLength, int minGrowth, int prefGrowth) {
+    private static int newLength(int oldLength, int minGrowth, int prefGrowth) {
         int newLength = Math.max(minGrowth, prefGrowth) + oldLength;
         if (newLength - MAX_ARRAY_LENGTH <= 0) {
             return newLength;
@@ -174,7 +172,7 @@ public class DiyArray<T> implements List<T> {
         return elementData(index);
     }
 
-    T elementData(int index) {
+    private T elementData(int index) {
         return (T) elementData[index];
     }
 
