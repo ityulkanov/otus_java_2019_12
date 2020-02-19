@@ -16,8 +16,22 @@ public class Main {
 
         }
 
-        Collections.addAll(diyArray, "sample", "andotherSempla", "see how ti works");
+        Collections.addAll(diyArray, " sample", " sample1", " sample2");
+        printArray(diyArray);
+        for (int i = 0; i < 3; i++) {
+            diyArray.remove(diyArray.size() - 1);
+            System.out.println("\nElement has been removed");
+            printArray(diyArray);
+        }
+
         Collections.copy(diyDestArray, diyArray);
+        printArray(diyDestArray);
         Collections.sort(diyArray, null);
+    }
+
+    private static void printArray(DiyArray diyArray) {
+        for (int i = 0; i < diyArray.size(); i++) {
+            System.out.print(diyArray.get(i));
+        }
     }
 }
