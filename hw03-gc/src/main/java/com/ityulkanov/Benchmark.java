@@ -16,9 +16,7 @@ public class Benchmark implements BenchmarkMBean {
     void run() throws InterruptedException {
         for (int idx = 0; idx < loopCounter; idx++) {
             int local = size;
-//            List<String> array = new ArrayList<>(local);
             for (int i = 0; i < local-1; i++) {
-//                array.add(i, new String(new char[0]));
                 int[] array = new int[size];
                 size = size + 10000;
             }
@@ -26,9 +24,6 @@ public class Benchmark implements BenchmarkMBean {
             if(loopCounter % 100 == 0) {
                 System.out.println("Available memory (in bytes): " + Runtime.getRuntime().freeMemory());
             }
-//            for (int i = size / 2; i > 0; i--) {
-//                array.remove(i);
-//            }
 
         }
     }
